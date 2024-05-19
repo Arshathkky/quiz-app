@@ -147,7 +147,7 @@ function App() {
         <li>
           <p style={{ fontSize: '18px', fontWeight: 'bold' }}>{quizzes[currentIndex]?.question}</p>
           <video
-            style={{ maxWidth: '100%', height: 'auto', marginBottom: '20px' }}
+            style={{ maxWidth: '80%', height: 'auto', marginBottom: '20px' }}
             autoPlay
             controls
             src={quizzes[currentIndex]?.videoPath}
