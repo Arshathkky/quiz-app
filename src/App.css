@@ -23,6 +23,78 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+/* Styles for the heading */
+.Heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333; /* Adjust color as needed */
+}
+
+/* Styles for the start button */
+.startBtn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007bff; /* Blue color, adjust as needed */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.startBtn:hover {
+  background-color: #0056b3; /* Darker blue on hover, adjust as needed */
+}
+
+/* Styles for the question */
+.question {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Styles for the video */
+.video {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Styles for the feedback message */
+.feedback {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+
+/* Styles for the buttons */
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  margin-right: 10px;
+}
+
+.button:disabled {
+  background-color: #ccc; /* Gray background for disabled buttons */
+  cursor: not-allowed;
+}
+
+.button:last-child {
+  margin-right: 0; /* Remove right margin for the last button */
+}
 
 .App-link {
   color: #61dafb;
