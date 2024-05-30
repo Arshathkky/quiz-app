@@ -1,28 +1,16 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Remove scrollbar */
+  background-color: black; /* Set the background color of the entire page to black */
+  height: 100%; /* Ensure body and html take full height */
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  color: aliceblue;
 }
+
 /* Styles for the heading */
 .Heading {
   font-size: 24px;
@@ -30,7 +18,7 @@
   color: #333; /* Adjust color as needed */
 }
 
-/* Styles for the start button */
+/* Styles for the start and restart buttons */
 .startBtn {
   padding: 10px 20px;
   font-size: 18px;
@@ -43,6 +31,21 @@
 }
 
 .startBtn:hover {
+  background-color: #0056b3; /* Darker blue on hover, adjust as needed */
+}
+
+.restartBtn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007bff; /* Blue color, adjust as needed */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.restartBtn:hover {
   background-color: #0056b3; /* Darker blue on hover, adjust as needed */
 }
 
@@ -98,6 +101,100 @@
 
 .App-link {
   color: #61dafb;
+}
+.Heading {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.startBtn {
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.restartBtn {
+  font-size: 18px;
+  margin:  10px 0;
+  padding: 5px ;
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+.videoContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* Ensure the background is black */
+}
+
+.quizVideo {
+  width: 100%;
+  height: 100vh;
+}
+
+.buttonContainer {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  gap: 10px;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.buttonContainer button {
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.feedback {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: px;
+  font-weight: bold;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+
+.navButtonContainer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.navButtonContainer button {
+  background-color: black; /* Set the background color of the buttons to black */
+  color: white; /* Set the text color to white for contrast */
+  border: none; /* Remove the border */
+  padding: 10px; /* Add some padding */
+  cursor: pointer;
+}
+
+.navButtonContainer button:disabled {
+  background-color: #333; /* Slightly lighter black for disabled buttons */
 }
 
 @keyframes App-logo-spin {

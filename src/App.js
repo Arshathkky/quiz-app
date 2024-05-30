@@ -75,6 +75,7 @@ function App() {
     if (showStartButton && event.key === ' ') {
       console.log('Space bar pressed to start quiz');
       handleStartQuiz();
+      handleRestartQuiz();
       return;
     }
 
@@ -85,9 +86,8 @@ function App() {
     }
 
     switch (event.key) {
-      case 'M':
       case 'm':
-        console.log('Next key pressed');
+      case 'M':
         handleNext();
         break;
       case 'X':
@@ -168,54 +168,54 @@ function App() {
     setIsCorrect(false);
     setCorrectCount(0);
     setShowEndDialog(false);
-    setShowStartButton(true); // Optional: show the start button again
+    setShowStartButton(false); // Ensure the start button stays hidden when restarting the quiz
   };
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1 className='Heading'>Quiz App</h1>
+    <div className="container">
       {showStartButton && (
         <button className='startBtn' onClick={handleStartQuiz}>Click Space bar to Start</button>
       )}
       {!showStartButton && !showEndDialog && (
         <>
-          <ul style={{ listStyleType: 'none', padding: 0 }}>
-            <li>
-              <p style={{ fontSize: '18px', fontWeight: 'bold' }}>{quizzes[currentIndex]?.question}</p>
-              <video
-                style={{ maxWidth: '80%', height: 'auto', marginBottom: '20px' }}
-                autoPlay
-                controls
-                src={quizzes[currentIndex]?.videoPath}
-              />
-              {showFeedback && (
-                <p style={{ color: isCorrect ? 'green' : 'red', fontWeight: 'bold' }}>
-                  {isCorrect ? 'Correct Answer!' : 'Wrong Answer!'}
-                </p>
-              )}
-            </li>
-          </ul>
-          <div style={{ marginBottom: '20px' }}>
-            <button ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
-              Previous (X)
-            </button>
-            <button onClick={() => handleAnswerSelection("1")} disabled={selectedAnswer !== null}>
-              Option 1
-            </button>
-            <button onClick={() => handleAnswerSelection("2")} disabled={selectedAnswer !== null}>
-              Option 2
-            </button>
-            <button onClick={() => handleAnswerSelection("3")} disabled={selectedAnswer !== null}>
-              Option 3
-            </button>
-            <button onClick={() => handleAnswerSelection("4")} disabled={selectedAnswer !== null}>
-              Option 4
-            </button>
-            <button ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
-              Next (M)
-            </button>
+          <div className="videoContainer">
+            <video
+              className="quizVideo"
+              autoPlay
+              
+              src={quizzes[currentIndex]?.videoPath}
+              style={{ width: '100%', height: '100vh' }}
+            />
+            {showFeedback && (
+              <p className={`feedback ${isCorrect ? 'correct' : 'wrong'}`}>
+                {isCorrect ? 'Correct Answer!' : 'Wrong Answer!'}
+              </p>
+            )}
+            <div className="buttonContainer">
+            <button className ="button" ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
+                Previous (X)
+              </button>
+              <button className ="button" onClick={() => handleAnswerSelection("1")} disabled={selectedAnswer !== null}>
+                Option 1
+              </button>
+              <button className ="button" onClick={() => handleAnswerSelection("2")} disabled={selectedAnswer !== null}>
+                Option 2
+              </button>
+              <button className ="button" onClick={() => handleAnswerSelection("3")} disabled={selectedAnswer !== null}>
+                Option 3
+              </button>
+              <button className ="button" onClick={() => handleAnswerSelection("4")} disabled={selectedAnswer !== null}>
+                Option 4
+              </button>
+               <button className ="button" ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
+                Next (M)
+              </button>
+            </div>
+            <div className="navButtonContainer">
+             
+             
+            </div>
           </div>
-          <p style={{ fontSize: '16px' }}>Correct Answers: {correctCount}</p>
         </>
       )}
       {showEndDialog && (
@@ -229,8 +229,8 @@ function App() {
           <p style={{ fontSize: '16px' }}>
             Wrong Answers: {quizzes.length - correctCount}
           </p>
-          <button onClick={handleRestartQuiz}>
-            Restart Quiz
+          <button className='restartBtn' onClick={handleRestartQuiz}>
+            Restart Quiz (Press Space bar)
           </button>
         </div>
       )}
