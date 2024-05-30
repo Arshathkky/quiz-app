@@ -155,7 +155,7 @@ function App() {
   }, [currentIndex, selectedAnswer]);
 
   const handleStartQuiz = () => {
-    alert('Welcome to the Quiz App! Press "M" to move to the next question, "X" to go to the previous question, and "C", "V", "B", "N" to select answers.');
+    alert('Welcome to the Quiz App! Press "M" to move to the next question, "X" to go to the previous question, and "C" for answer 1, "V" for answer 2, "B" for answer 3, "N" for answer 4 to select answers.');
     // Hide the "Let's Start" button and start the quiz
     setShowStartButton(false);
   };
@@ -175,7 +175,7 @@ function App() {
     <div style={{ textAlign: 'center' }}>
       <h1 className='Heading'>Quiz App</h1>
       {showStartButton && (
-        <button className='startBtn' onClick={handleStartQuiz}>Click here to Start</button>
+        <button className='startBtn' onClick={handleStartQuiz}>Click Space bar to Start</button>
       )}
       {!showStartButton && !showEndDialog && (
         <>
