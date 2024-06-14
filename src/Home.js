@@ -141,32 +141,32 @@ const Home = () => {
                 src={quizzes[currentIndex]?.videoPath}
               />
               {showFeedback && (
-                <p>{isCorrect ? 'Correct Answer!' : 'Wrong Answer!' }</p>
+                <p>{isCorrect ? '!ЯƎWƧИA TƆƎЯЯOƆ' : '!ЯƎWƧИA ӘИOЯW' }</p>
               )}
               
             </li>
           </ul>
           <div>
             <button ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
-              Previous (X)
+            (X) ƧUOIVƎЯꟼ
             </button>
             <button onClick={() => handleAnswerSelection("1")} disabled={selectedAnswer !== null}>
-              Option 1
+            A ИOITꟼO
             </button>
             <button onClick={() => handleAnswerSelection("2")} disabled={selectedAnswer !== null}>
-              Option 2
+            ꓭ ИOITꟼO
             </button>
             <button onClick={() => handleAnswerSelection("3")} disabled={selectedAnswer !== null}>
-              Option 3
+            Ɔ ИOITꟼO
             </button>
             <button onClick={() => handleAnswerSelection("4")} disabled={selectedAnswer !== null}>
-              Option 4
+            ꓷ ИOITꟼO
             </button>
             <button ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
-              Next (M)
+            (M) TXƎИ
             </button>
           </div>
-          <p>Correct Answers: {correctCount}</p>
+          <p>:ƧЯƎWƧИA TƆЯЯOƆ {correctCount}</p>
         </div>
       );
   

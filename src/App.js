@@ -9,7 +9,9 @@ import Question7 from './hologram_video_output/que07.mp4';
 import Question8 from './hologram_video_output/que08.mp4';
 import Question9 from './hologram_video_output/que09.mp4';
 import Question10 from './hologram_video_output/que10.mp4';
+import TitleVideo from './hologram_video_output/Title_Video.mp4';
 import './App.css';
+import ReactPlayer from 'react-player';
 
 function App() {
   const exampleQuizzes = [
@@ -31,9 +33,10 @@ function App() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [questionTimeout, setQuestionTimeout] = useState(null);
-  const [correctCount, setCorrectCount] = useState(0); // State to hold the count of correct answers
-  const [showStartButton, setShowStartButton] = useState(true); // State to track whether to show the start button or not
-  const [showEndDialog, setShowEndDialog] = useState(false); // State to track whether to show the end dialog
+  const [correctCount, setCorrectCount] = useState(0);
+  const [showStartButton, setShowStartButton] = useState(true);
+  const [showEndDialog, setShowEndDialog] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   const nextButtonRef = useRef(null);
   const previousButtonRef = useRef(null);
@@ -53,7 +56,7 @@ function App() {
       setShowFeedback(true);
       const correct = selectedAnswer === quizzes[currentIndex].correctAnswer;
       setIsCorrect(correct);
-      setCorrectCount((prevCount) => (correct ? prevCount + 1 : prevCount)); // Increment correct count if the answer is correct
+      setCorrectCount((prevCount) => (correct ? prevCount + 1 : prevCount));
       setTimeout(() => {
         if (currentIndex < quizzes.length - 1) {
           setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -71,16 +74,13 @@ function App() {
   };
 
   const handleKeyPress = (event) => {
-    console.log(`Key pressed: ${event.key}`);
     if (showStartButton && event.key === ' ') {
-      console.log('Space bar pressed to start quiz');
       handleStartQuiz();
       handleRestartQuiz();
       return;
     }
 
     if (showEndDialog && event.key === ' ') {
-      console.log('Space bar pressed to restart quiz');
       handleRestartQuiz();
       return;
     }
@@ -92,7 +92,6 @@ function App() {
         break;
       case 'X':
       case 'x':
-        console.log('Previous key pressed');
         handlePrevious();
         break;
       case 'C':
@@ -117,27 +116,22 @@ function App() {
   };
 
   const handleNext = () => {
-    console.log('Handling next question');
     clearTimeout(questionTimeout);
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex < quizzes.length - 1 ? prevIndex + 1 : prevIndex;
-      console.log(`New currentIndex: ${newIndex}`);
       return newIndex;
     });
   };
 
   const handlePrevious = () => {
-    console.log('Handling previous question');
     clearTimeout(questionTimeout);
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex > 0 ? prevIndex - 1 : prevIndex;
-      console.log(`New currentIndex: ${newIndex}`);
       return newIndex;
     });
   };
 
   const handleAnswerSelection = (answer) => {
-    console.log(`Answer selected: ${answer}`);
     setSelectedAnswer(answer);
   };
 
@@ -155,65 +149,73 @@ function App() {
   }, [currentIndex, selectedAnswer]);
 
   const handleStartQuiz = () => {
-    alert('Welcome to the Quiz App! Press "M" to move to the next question, "X" to go to the previous question, and "C" for answer 1, "V" for answer 2, "B" for answer 3, "N" for answer 4 to select answers.');
-    // Hide the "Let's Start" button and start the quiz
-    setShowStartButton(false);
+    setShowVideo(true);
+    setShowStartButton(false);   
   };
 
   const handleRestartQuiz = () => {
-    // Reset the state to start the quiz again
     setCurrentIndex(0);
     setSelectedAnswer(null);
     setShowFeedback(false);
     setIsCorrect(false);
     setCorrectCount(0);
     setShowEndDialog(false);
-    setShowStartButton(false); // Ensure the start button stays hidden when restarting the quiz
+    setShowStartButton(false);
   };
 
   return (
     <div className="container">
       {showStartButton && (
-        <button className='startBtn' onClick={handleStartQuiz}>Click Space bar to Start</button>
+        <button className='startBtn' onClick={handleStartQuiz}>TЯATƧ OT ЯAꓭƎƆAꟼƧ ꓘƆI⅃Ɔ</button>
       )}
-      {!showStartButton && !showEndDialog && (
+
+      {showVideo && (
+        <div className="videoContainer">
+          <ReactPlayer
+            url={TitleVideo}
+            playing
+            muted
+            controls
+            onEnded={() => setShowVideo(false)}
+            width="100%"
+            height="100vh"
+          />
+        </div>
+      )}
+
+      {!showStartButton && !showVideo && !showEndDialog && (
         <>
           <div className="videoContainer">
             <video
               className="quizVideo"
               autoPlay
-              
               src={quizzes[currentIndex]?.videoPath}
               style={{ width: '100%', height: '100vh' }}
             />
             {showFeedback && (
               <p className={`feedback ${isCorrect ? 'correct' : 'wrong'}`}>
-                {isCorrect ? 'Correct Answer!' : 'Wrong Answer!'}
+                {isCorrect ? '!ЯƎWƧИA TƆƎЯЯOƆ' : '!ЯƎWƧИA ӘИOЯW'}
               </p>
             )}
             <div className="buttonContainer">
-            <button className ="button" ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
-                Previous (X)
+              <button className ="button" ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
+              (X)ƧUOIVƎЯꟼ
               </button>
               <button className ="button" onClick={() => handleAnswerSelection("1")} disabled={selectedAnswer !== null}>
-                Option 1
+              A ИOITꟼO
               </button>
               <button className ="button" onClick={() => handleAnswerSelection("2")} disabled={selectedAnswer !== null}>
-                Option 2
+              ꓭ ИOITꟼO
               </button>
               <button className ="button" onClick={() => handleAnswerSelection("3")} disabled={selectedAnswer !== null}>
-                Option 3
+              Ɔ ИOITꟼO
               </button>
               <button className ="button" onClick={() => handleAnswerSelection("4")} disabled={selectedAnswer !== null}>
-                Option 4
+              ꓷ ИOITꟼO
               </button>
-               <button className ="button" ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
-                Next (M)
+              <button className ="button" ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
+              (M) TXƎИ
               </button>
-            </div>
-            <div className="navButtonContainer">
-             
-             
             </div>
           </div>
         </>
@@ -221,16 +223,16 @@ function App() {
       {showEndDialog && (
         <div>
           <p style={{ fontSize: '18px', fontWeight: 'bold' }}>
-            Quiz Completed!
+            !ꓷƎTƎ⅃ꟼMOƆ ZIUϘ
           </p>
           <p style={{ fontSize: '16px' }}>
-            Correct Answers: {correctCount}
+          {correctCount}:ƧЯƎWƧИA TƆЯЯOƆ 
           </p>
-          <p style={{ fontSize: '16px' }}>
-            Wrong Answers: {quizzes.length - correctCount}
+          <p style={{ fontSize: '16px'}}>
+          {quizzes.length - correctCount}:ƧЯƎWƧИA ӘИOЯW 
           </p>
           <button className='restartBtn' onClick={handleRestartQuiz}>
-            Restart Quiz (Press Space bar)
+          (ЯAꓭƎƆAꟼƧ ƎHT ƧƧƎЯꟼ)ZIUϘ ƎHT TЯƎƧƎЯ
           </button>
         </div>
       )}
