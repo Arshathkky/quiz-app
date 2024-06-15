@@ -34,9 +34,9 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [questionTimeout, setQuestionTimeout] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
-  const [showStartButton, setShowStartButton] = useState(true);
   const [showEndDialog, setShowEndDialog] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
+  const [showVideo, setShowVideo] = useState(true);
+  const [showStartPrompt, setShowStartPrompt] = useState(false);
 
   const nextButtonRef = useRef(null);
   const previousButtonRef = useRef(null);
@@ -48,7 +48,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [showVideo]);
 
   useEffect(() => {
     if (selectedAnswer !== null) {
@@ -74,13 +74,12 @@ function App() {
   };
 
   const handleKeyPress = (event) => {
-    if (showStartButton && event.key === ' ') {
+    if (showVideo && event.key === ' ') {
       handleStartQuiz();
-      handleRestartQuiz();
       return;
     }
 
-    if (showEndDialog && event.key === ' ') {
+    if (showEndDialog && event.key === 'r') {
       handleRestartQuiz();
       return;
     }
@@ -149,8 +148,8 @@ function App() {
   }, [currentIndex, selectedAnswer]);
 
   const handleStartQuiz = () => {
-    setShowVideo(true);
-    setShowStartButton(false);   
+    setShowVideo(false);
+    setShowStartPrompt(false);
   };
 
   const handleRestartQuiz = () => {
@@ -160,30 +159,41 @@ function App() {
     setIsCorrect(false);
     setCorrectCount(0);
     setShowEndDialog(false);
-    setShowStartButton(false);
+    setShowVideo(true);
+    setShowStartPrompt(false);
+  };
+
+  const handleVideoEnded = () => {
+    setShowStartPrompt(true);
+    const promptTimeout = setTimeout(() => {
+      setShowStartPrompt(false);
+      setShowVideo(true); // Restart the video
+    }, 30000);
+
+    return () => clearTimeout(promptTimeout);
   };
 
   return (
     <div className="container">
-      {showStartButton && (
-        <button className='startBtn' onClick={handleStartQuiz}>TЯATƧ OT ЯAꓭƎƆAꟼƧ ꓘƆI⅃Ɔ</button>
-      )}
-
       {showVideo && (
         <div className="videoContainer">
           <ReactPlayer
             url={TitleVideo}
-            playing
+            playing={true}
             muted
             controls
-            onEnded={() => setShowVideo(false)}
             width="100%"
             height="100vh"
+            onEnded={handleVideoEnded}
           />
+          {showStartPrompt && (
+            <div className="startPrompt">
+              ziuQ eht tratS ot ecapS sserP
+            </div>
+          )}
         </div>
       )}
-
-      {!showStartButton && !showVideo && !showEndDialog && (
+      {!showVideo && !showEndDialog && (
         <>
           <div className="videoContainer">
             <video
@@ -198,23 +208,25 @@ function App() {
               </p>
             )}
             <div className="buttonContainer">
-              <button className ="button" ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
-              (X)ƧUOIVƎЯꟼ
+              <button className="button" onClick={() => handleAnswerSelection("1")} disabled={selectedAnswer !== null}>
+                A
               </button>
-              <button className ="button" onClick={() => handleAnswerSelection("1")} disabled={selectedAnswer !== null}>
-              A ИOITꟼO
+              <button className="button" onClick={() => handleAnswerSelection("2")} disabled={selectedAnswer !== null}>
+                ꓭ
               </button>
-              <button className ="button" onClick={() => handleAnswerSelection("2")} disabled={selectedAnswer !== null}>
-              ꓭ ИOITꟼO
+              <button className="button" onClick={() => handleAnswerSelection("3")} disabled={selectedAnswer !== null}>
+                Ɔ
               </button>
-              <button className ="button" onClick={() => handleAnswerSelection("3")} disabled={selectedAnswer !== null}>
-              Ɔ ИOITꟼO
+              <button className="button" onClick={() => handleAnswerSelection("4")} disabled={selectedAnswer !== null}>
+                ꓷ
               </button>
-              <button className ="button" onClick={() => handleAnswerSelection("4")} disabled={selectedAnswer !== null}>
-              ꓷ ИOITꟼO
+            </div>
+            <div className="navButtonContainer">
+              <button className="button" ref={previousButtonRef} onClick={handlePrevious} disabled={currentIndex === 0}>
+                {"<"}
               </button>
-              <button className ="button" ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
-              (M) TXƎИ
+              <button className="button" ref={nextButtonRef} onClick={handleNext} disabled={currentIndex === quizzes.length - 1}>
+                {">"}
               </button>
             </div>
           </div>
@@ -226,13 +238,13 @@ function App() {
             !ꓷƎTƎ⅃ꟼMOƆ ZIUϘ
           </p>
           <p style={{ fontSize: '16px' }}>
-          {correctCount}:ƧЯƎWƧИA TƆЯЯOƆ 
+            {correctCount}:ƧЯƎWƧИA TƆƎЯЯOƆ
           </p>
           <p style={{ fontSize: '16px'}}>
-          {quizzes.length - correctCount}:ƧЯƎWƧИA ӘИOЯW 
+            {quizzes.length - correctCount}:ƧЯƎWƧИA ӘИOЯW
           </p>
           <button className='restartBtn' onClick={handleRestartQuiz}>
-          (ЯAꓭƎƆAꟼƧ ƎHT ƧƧƎЯꟼ)ZIUϘ ƎHT TЯƎƧƎЯ
+            (ЯAꓭƎƆAꟼƧ ƎHT ƧƧƎЯꟼ)ZIUϘ ƎHT TЯƎƧƎЯ
           </button>
         </div>
       )}
