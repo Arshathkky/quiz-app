@@ -1,10 +1,13 @@
+[hologram1](https://github.com/user-attachments/assets/24a553b2-ec4f-452f-b3da-834b2e7f793b)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, yo!
+u can run:
 
 ### `npm start`
 
